@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: spring-boot-admin
+  security:
+    user:
+      name: "admin"
+      password: "abcd@1234"
+
+server:
+  port: 20004
+
+# tag::configuration-eureka[]
+eureka:   #<1>
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      user.name: "admin"         #These two are needed so that the server
+      user.password: "abcd@1234" #can access the protected client endpoints
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  #<2>
+  endpoint:
+    health:
+      show-details: ALWAYS
+# end::configuration-eureka[]
+
+info:
+  version: 1.0.0
